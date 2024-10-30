@@ -22,6 +22,8 @@ class ImagePublisher(Node):
       
     # We will publish a message every 0.1 seconds
     timer_period = 0.001  # seconds
+    self.FPS = 1/30
+    self.FPS_MS = int(self.FPS*1000)
       
     # Create the timer
     self.timer = self.create_timer(timer_period, self.timer_callback)
@@ -51,8 +53,10 @@ class ImagePublisher(Node):
         print("Frame is empty")
     else:
       # cv2.imshow('VIDEO', frame)
+      # resize = cv2.resize(frame, (1080, 720))
+      # self.publisher_.publish(self.br.cv2_to_imgmsg(resize))
       self.publisher_.publish(self.br.cv2_to_imgmsg(frame))
-      cv2.waitKey(1)
+      cv2.waitKey(self.FPS_MS)
  
     # Display the message on the console
     self.get_logger().info('Publishing video frame')
