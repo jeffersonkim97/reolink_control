@@ -19,7 +19,7 @@ class ImagePublisher(Node):
       
     # Create the publisher. This publisher will publish an Image
     # to the video_frames topic. The queue size is 10 messages.
-    self.publisher_ = self.create_publisher(Image, 'ptzcam03/video_frame', 10)
+    self.publisher_ = self.create_publisher(Image, 'ptzcam01/video_frame', 10)
     # self.publisher_ = self.create_publisher(CompressedImage, 'ptzcam03/video_frame_compressed', 10)
       
     # We will publish a message every 0.1 seconds
@@ -34,8 +34,9 @@ class ImagePublisher(Node):
     # The argument '0' gets the default webcam.
     # self.cap = cv2.VideoCapture(0)
     os.environ["OPENCV_FFMPEG_CAPTURE_OPTIONS"] = "rtsp_transport;udp"
+    self.cap = cv2.VideoCapture("rtsp://admin:tobeor!2b@192.168.123.252/", cv2.CAP_FFMPEG) # Reolink PTZCAM02
     # self.cap = cv2.VideoCapture("rtsp://admin:tobeor!2b@192.168.123.61/", cv2.CAP_FFMPEG) # Reolink PTZCAM02
-    self.cap = cv2.VideoCapture("rtsp://admin:tobeor!2b@192.168.123.221/", cv2.CAP_FFMPEG) # Reolink PTZCAM03
+    # self.cap = cv2.VideoCapture("rtsp://admin:tobeor!2b@192.168.123.221/", cv2.CAP_FFMPEG) # Reolink PTZCAM03
     # self.capture.set(cv2.CAP_PROP_BUFFERSIZE, 2)
 
     # Used to convert between ROS and OpenCV images
